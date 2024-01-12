@@ -9,3 +9,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGGING = {
+    **LOGGING,
+    'loggers': {
+        # root logger
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        },
+    }
+}
