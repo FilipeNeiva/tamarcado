@@ -6,7 +6,7 @@ from agenda.serializers import AgendamentoSerializer, PrestadorSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import mixins, generics, permissions
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from rest_framework.decorators import api_view
 from datetime import datetime
 from agenda.utils import get_horarios_disponiveis
