@@ -1,4 +1,5 @@
 from tamarcado.settings.base import *
+from decouple import config
 
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
@@ -6,9 +7,10 @@ ALLOWED_HOSTS = ["*"]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {
-            "service": "my_service",
-            "passfile": ".my_pgpass",
-        },
+        "NAME": "agenda",
+        "USER": config('user'),
+        "PASSWORD": config('password'),
+        "HOST": config('host'),
+        "PORT": config('port'),
     }
 }
