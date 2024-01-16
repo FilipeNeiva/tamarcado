@@ -4,6 +4,8 @@ from decouple import config
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
+STATIC_ROOT = '/var/www/tamarcado/static'
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
