@@ -1,7 +1,7 @@
 from tamarcado.settings.base import *
 from decouple import config
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 STATIC_ROOT = '/var/www/tamarcado/static'
