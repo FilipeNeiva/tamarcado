@@ -5,3 +5,4 @@ migrations
 .coverage
 .pytest_cache
 .env
+static
