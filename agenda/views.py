@@ -55,6 +55,7 @@ class PrestadorList(generics.ListAPIView): # /api/prestadores/
 
 @api_view(http_method_names=["GET"])
 def get_horarios(request):
+    raise Exception("Testando erro")
     data = request.query_params.get("data")
     if not data:
         data = datetime.now().date()
