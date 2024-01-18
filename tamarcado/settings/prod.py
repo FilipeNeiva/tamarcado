@@ -1,7 +1,7 @@
 from tamarcado.settings.base import *
 from decouple import config
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
