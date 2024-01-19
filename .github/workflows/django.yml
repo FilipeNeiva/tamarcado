@@ -27,11 +27,4 @@ jobs:
         pip install -r requirements/dev.txt
     - name: Run Tests
       run: |
-        if "test" in sys.argv:
-          DATABASES["default"] = dj_database_url.config(
-              default=config("TEST_DATABASE_URL")
-          )
-          TEMPLATE_DEBUG = False
-          TESTS_IN_PROGRESS = True
-          MIGRATION_MODULES = DisableMigrations()
         pytest
