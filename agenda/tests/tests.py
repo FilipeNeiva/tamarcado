@@ -4,14 +4,13 @@ from rest_framework.test import APITestCase
 from agenda.models import Agendamento
 from django.contrib.auth.models import User as Prestador
 from datetime import datetime, timezone
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 from unittest import mock
 
 # Create your tests here.
 class TestListagemAgendamentos(APITestCase):
     def setUp(self):
-        User = get_user_model()
         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
     
     def test_listagem_vazia(self):
@@ -46,7 +45,6 @@ class TestListagemAgendamentos(APITestCase):
 
 class TestDetalhesAgendamentos(APITestCase):
     def setUp(self):
-        User = get_user_model()
         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
 
     def test_exibir_agendamento(self):
@@ -75,7 +73,6 @@ class TestDetalhesAgendamentos(APITestCase):
 
 class TestListagemPrestadores(APITestCase):
     def setUp(self):
-        User = get_user_model()
         User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
         User.objects.create_superuser('temporarystaff', 'temporarystaff@gmail.com', 'temporarystaff')
 
