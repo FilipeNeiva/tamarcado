@@ -10,16 +10,17 @@ from unittest import mock
 
 # Create your tests here.
 class TestListagemAgendamentos(APITestCase):
-    def setUp(self):
-        User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
-    
     def test_listagem_vazia(self):
+        User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+
         self.client.login(username='temporary', password='temporary')
         response = self.client.get("/api/agendamentos/?username=temporary")
         data = json.loads(response.content)
         self.assertEqual(data, [])
 
     def test_listagem_de_agendamentos_criados(self):
+        User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+
         self.client.login(username='temporary', password='temporary')
         prestador = Prestador.objects.first()
         Agendamento.objects.create(
