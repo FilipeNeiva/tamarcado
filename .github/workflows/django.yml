@@ -29,6 +29,5 @@ jobs:
       env:
         SECRET_KEY: abcdef
         DJANGO_SETTINGS_MODULE: tamarcado.settings.testing
-        LD_LIBRARY_PATH: /usr/local/lib
       run: |
         pytest
