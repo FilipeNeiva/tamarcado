@@ -133,8 +133,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

@@ -5,8 +5,6 @@ migrations
 .coverage
 .pytest_cache
 .env
-<<<<<<< HEAD
 run
-=======
 static
->>>>>>> e758ad8db71c918ec7bd9bf1c93a5b61a0ca377a
+migrations
