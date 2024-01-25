@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from agenda.serializers import PrestadorSerializer
 from django.core.mail import EmailMessage
 
-@app.task
-def gera_relatorio_prestadores():
+def gera_relatorio():
     output = StringIO()
     writer = csv.writer(output)
+
+    # Escrevendo cabeçalho
     writer.writerow([
         "prestador",
         "nome_cliente",
@@ -18,6 +19,7 @@ def gera_relatorio_prestadores():
         "data_horario",
     ])
 
+    # Escrevendo linhas
     prestadores = User.objects.all()
     serializer = PrestadorSerializer(prestadores, many=True)
     for prestador in serializer.data:
@@ -31,6 +33,12 @@ def gera_relatorio_prestadores():
                 agendamento["data_horario"],
             ])
 
+    return output.getvalue()
+
+
+@app.task
+def envia_email_relatorio():
+    output = gera_relatorio()
     email = EmailMessage(
         'tamarcado - Relatório de prestatores',
         'Em anexo o relatório solicitado.',
@@ -38,7 +46,5 @@ def gera_relatorio_prestadores():
         ['admin@exemple.com'],
     )
 
-    email.attach("relatorio.csv", output.getvalue(), "text/csv")
+    email.attach("relatorio.csv", output, "text/csv")
     email.send()
-
-    # print(output.getvalue())
