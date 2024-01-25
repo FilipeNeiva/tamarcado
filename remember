@@ -1,0 +1,1 @@
+celery: celery -A tamarcado worker -Q celery --loglevel=INFO
