@@ -48,3 +48,5 @@ def envia_email_relatorio():
 
     email.attach("relatorio.csv", output, "text/csv")
     email.send()
+
+    return email
