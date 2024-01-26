@@ -10,7 +10,7 @@ from rest_framework import mixins, generics, permissions
 from django.contrib.auth.models import User, Group
 from rest_framework.decorators import api_view, permission_classes
 from datetime import date, datetime
-from agenda.tasks import gera_relatorio_prestadores
+from agenda.tasks import envia_email_relatorio
 from agenda.utils import get_horarios_disponiveis
 
 # Create your views here.
@@ -53,13 +53,7 @@ class AgendamentoDetails(generics.RetrieveUpdateDestroyAPIView): # /api/agendame
 @permission_classes([permissions.IsAdminUser])
 def relatorio_prestadores(request):
     if request.query_params.get("formato") == "csv":
-        # data_hoje = date.today()
-        # response = HttpResponse(
-        #     content_type="text/csv",
-        #     headers={"Content-Disposition": f'attachment; filename="relatorio_{data_hoje}.csv"'},
-        # )
-
-        result = gera_relatorio_prestadores.delay()
+        result = envia_email_relatorio.delay()
         return Response({"task_id": result.task_id})
     else:
         prestadores = User.objects.all()

@@ -5,6 +5,8 @@ from agenda.models import Agendamento
 from django.contrib.auth.models import User as Prestador
 from datetime import datetime, timezone
 from django.contrib.auth import get_user_model
+from agenda.tasks import gera_relatorio, envia_email_relatorio
+from django.core import mail
 
 from unittest import mock
 
@@ -129,3 +131,26 @@ class TestGetHorarios(APITestCase):
         self.assertNotEqual(data, [])
         self.assertEqual(data[0], datetime(2024, 10, 3, 9, tzinfo=timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z"))
         self.assertEqual(data[-1], datetime(2024, 10, 3, 17, 30, tzinfo=timezone.utc).strftime("%Y-%m-%dT%H:%M:00Z"))
+
+class TestRelatorioPrestadores(APITestCase):
+    def setUp(self):
+        User = get_user_model()
+        User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        User.objects.create_superuser('temporarystaff', 'temporarystaff@gmail.com', 'temporarystaff')
+
+    def test_gera_relatorio(self):
+        result = gera_relatorio()
+        self.assertEqual(result, "prestador,nome_cliente,email_clinte,telefone_cliente,data_horario\r\n")
+
+    def test_envia_email_usuario_sem_staff(self):
+        self.client.login(username="temporary", password="temporary")
+        result = self.client.get("/api/prestadores/?formato=csv")
+        data = json.loads(result.content)
+        self.assertDictEqual(data, {'detail': 'You do not have permission to perform this action.'})
+    
+    def test_envia_email(self):
+        mail = envia_email_relatorio()
+
+        self.assertEqual(mail.subject, "tamarcado - Relatório de prestatores")
+
+        
