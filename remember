@@ -1,1 +1,2 @@
 celery: celery -A tamarcado worker -Q celery --loglevel=INFO
+docker run -p 8000:8000 -v /home/filipe_vilanova/djangorestcurso/drf-api:/app python-docker
