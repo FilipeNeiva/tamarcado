@@ -25,7 +25,7 @@ class AgendamentoSerializer(serializers.ModelSerializer):
         if value not in get_horarios_disponiveis(value.date()):
             raise serializers.ValidationError("Esse horário não está disponivel!")
         return value
-    
+
     def validate(self, attrs):
         telefone_cliente = attrs.get("telefone_cliente", "")
         email_cliente = attrs.get("email_cliente", "")
